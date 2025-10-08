@@ -1,6 +1,5 @@
 "use client"
 import axios from 'axios'
-// import { title } from 'process'
 import React from 'react'
 import { encryptData } from '../utils/encryption'
 import { useAuth } from "../context/AuthContext";
