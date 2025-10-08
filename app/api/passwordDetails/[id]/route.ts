@@ -5,9 +5,9 @@ import connectDB from '../../../../lib/mongodb'
 
 connectDB()
 
-export async function POST (request: NextRequest, { params }: { params: { id: string } }){
+export async function POST (request: NextRequest,  context: { params: { id: string } } ){
     try{
-          const  {id}  =await params;
+         const { id } = context.params;
         //   console.log("post method",id)
     const reqBody = await request.json();
     // console.log(reqBody)
