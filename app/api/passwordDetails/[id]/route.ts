@@ -46,8 +46,8 @@ export async function GET(request: NextRequest) { //{ params }: { params: { id: 
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
   const reqBody = await request.json();
   const { encryptedData } = reqBody;
 
@@ -62,10 +62,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 }
 
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = await context.params;
     const deletedItem = await PasswordDetail.findByIdAndDelete(id);
 
     if (!deletedItem) {
