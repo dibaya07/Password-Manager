@@ -112,7 +112,7 @@ export default function Profile() {
 
             <span className='font-bold text-2xl capitalize m-6 '>Welcome {userInfo?.username}</span>
 
-            <div className='flex justify-center mb-4'>
+           {editItem && <div className='flex justify-center mb-4'>
                 <input
                     type="text"
                     placeholder="Search by title..."
@@ -120,7 +120,7 @@ export default function Profile() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className='border border-gray-400 w-1/3 p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black'
                 />
-            </div>
+            </div>}
 
             {!editItem && <div className='flex flex-wrap justify-center h-screen py-6 '>
                 {filteredVaultData.length === 0 && (
