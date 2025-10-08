@@ -83,7 +83,7 @@ if (!userInfo) return <p>Loading...</p>;
         type="text"
         placeholder='enter your url'
         id='url'
-        value={passwordDetails.url || ''}
+        value={passwordDetails?.url || ''}
         onChange={(e)=>setPasswordDetails({...passwordDetails,url:e.target.value})}
       />
       </div>
@@ -93,7 +93,7 @@ if (!userInfo) return <p>Loading...</p>;
         type="text"
         placeholder='enter your notes'
         id='notes'
-        value={passwordDetails.notes || ''}
+        value={passwordDetails?.notes || ''}
         onChange={(e)=>setPasswordDetails({...passwordDetails,notes:e.target.value})}
         className='border border-solid border-black rounded-sm p-1'
       />
