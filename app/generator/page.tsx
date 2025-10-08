@@ -93,13 +93,6 @@ export default function Generator() {
             }
 
             const encryptedData = encryptData(newPasswordDetails, secretKey);
-            // console.log(encryptedData)
-
-            // setPasswordDetails({
-            //     ...passwordDetails,
-            //     title: defaultTitle(),
-            //     password: generatedPassword,
-            // })
             await axios.post(`/api/passwordDetails/${userInfo?.id}`, { encryptedData})
             setIsGenerated(false)
         } catch (error) {

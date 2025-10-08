@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function PasswordDetailsForm({ setShowForm, setIsGenerated, setGeneratedPassword ,passwordDetails,setPasswordDetails}) {
   const { userInfo,setUserInfo } = useAuth();
-
+ 
 const secretKey = "dibyaxyztuvsdfh"
 
   const handleUpdateDetails = async () => {

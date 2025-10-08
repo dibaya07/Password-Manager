@@ -4,11 +4,11 @@ import axios from 'axios'
 import { decryptData } from '../utils/encryption'
 import { v4 as uuidv4 } from 'uuid';
 import { useAuth } from "../context/AuthContext";
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 
 export default function Profile() {
-    const router = useRouter()
+    // const router = useRouter()
     const secretKey= "dibyaxyztuvsdfh"
     
     type vaultItems = {
@@ -25,7 +25,7 @@ export default function Profile() {
     }
     const [vaultData, setvaultData] = useState<vaultItems[]>([])
     const [encryptedData, setEncryptedData] = useState<encryptedItems[]>([])
-    const { userInfo, isLogin } = useAuth();
+    const { userInfo } = useAuth();
     const [loading, setLoading] = useState(true)
 
     // console.log(userInfo?.id)

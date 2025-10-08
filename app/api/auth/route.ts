@@ -15,7 +15,10 @@ export async function GET(request:NextRequest) {
       isLoggedIn: true,
       user: decoded, // this contains username, email, id, etc.
     });
-  } catch (error:unknown) {
-    return NextResponse.json({message:"token related issue", isLoggedIn: false });
+  }catch (error: unknown) {
+  if (error instanceof Error) {
+    return NextResponse.json({ error: error.message , isLoggedIn: false }, { status: 500 });
   }
+  return NextResponse.json({ error: "Unknown error occurred" }, { status: 500 });
+}
 }

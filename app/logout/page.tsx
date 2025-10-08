@@ -7,18 +7,21 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Logout() {
   const router = useRouter()
-  const { userInfo, isLogin,setUserInfo,setIsLogin } = useAuth();
-    const handleLogout =async()=>{
-        try{
-            await axios.get('/api/user/logout')
-            setUserInfo(null)
-            router.push('/')
-        }catch(error:any){
-            console.log("logout error",error.message)
-        }finally{
-          setIsLogin(false)
-        }
+  const { setUserInfo, setIsLogin } = useAuth();
+  const handleLogout = async () => {
+    try {
+      await axios.get('/api/user/logout')
+      setUserInfo(null)
+      router.push('/')
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log("logout failed", error.message);
+        alert(error.message);
+      }
+    } finally {
+      setIsLogin(false)
     }
+  }
   return (
     <div>
       <button onClick={handleLogout}>logout</button>

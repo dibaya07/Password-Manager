@@ -10,8 +10,11 @@ export async function GET() {
             httpOnly:true,expires: new Date(0)
         })
         return response;
-    }catch(error:any){
-        console.log("logout error",error.message)
-    }
+    }catch (error: unknown) {
+  if (error instanceof Error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+  return NextResponse.json({ error: "Unknown error occurred" }, { status: 500 });
+}
     
 }

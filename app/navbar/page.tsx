@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext";
 export default function Navbar() {
 
 
-  const { userInfo, isLogin } = useAuth();
+  const { isLogin } = useAuth();
 
 
   // console.log(userInfo)
@@ -33,22 +33,3 @@ export default function Navbar() {
   )
 }
 
-
-// 'use client'
-// import axios from 'axios';//   const [user, setUser] = useState(null);
-  //   const [isLogin, setIsLogin] = useState("")
-
-
-
-  // useEffect(() => {
-  //   const checkUser = async () => {
-  //     const res = await axios.get("/api/auth");
-  //     // if (data.isLoggedIn) {
-  //     //   setUser(data.user);
-  //     // }
-  //     setUser(res?.data.user)
-  //     setIsLogin(res?.data.isLoggedIn)
-  //     console.log(res.data.user)
-  //   };
-  //   checkUser();
-  // }, []);
