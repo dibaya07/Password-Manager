@@ -8,10 +8,8 @@ import { useAuth } from "../context/AuthContext";
 
 
 export default function Login() {
-
     const router = useRouter()
     const { setIsLogin } = useAuth();
-    //  const [error, seterror] = useState('')
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -25,9 +23,9 @@ export default function Login() {
             setIsLogin(true)
             router.push('/')
         } catch (error: unknown) {
-            if (error instanceof Error){
+            if (error instanceof Error) {
                 console.log("login failed", error);
-                   alert(error.message);
+                alert(error.message);
             }
         }
     }

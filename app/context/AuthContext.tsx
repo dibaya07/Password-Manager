@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 
 
 interface User {
-    id?:string,
+    id?: string,
     username?: string;
     email?: string;
 }
@@ -24,31 +24,29 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
 
-    const [userInfo, setUserInfo] = useState<User | null>({
-    id:"",
-    username: "",
-    email: ""
-});
+    const [userInfo, setUserInfo] = useState<User | null>(null);
     const [isLogin, setIsLogin] = useState<boolean>(false)
 
     useEffect(() => {
-        try{
-             const checkUser = async () => {
-            const res = await axios.get("/api/auth");
- 
-            setUserInfo(res?.data.user)
-            setIsLogin(res?.data.isLoggedIn === true? true: false)
-            // console.log( res.data)
+        const checkUser = async () => {
+            try {
+                const res = await axios.get("/api/auth");
+
+                setUserInfo(res?.data.user)
+                setIsLogin(res?.data.isLoggedIn === true ? true : false)
+            } catch (error) {
+                console.log('user data getting error', error)
+                setUserInfo(null);
+                setIsLogin(false);
+            }
+
         };
         checkUser();
-        }catch(error){
-            console.log('user data getting error',error)
-        }
-       
+
     }, []);
 
     return (
-        <AuthContext.Provider value={{ userInfo, isLogin,setUserInfo,setIsLogin }}>
+        <AuthContext.Provider value={{ userInfo, isLogin, setUserInfo, setIsLogin }}>
             {children}
         </AuthContext.Provider>
     );

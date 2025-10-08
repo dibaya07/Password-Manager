@@ -6,11 +6,8 @@ import { encryptData } from '../utils/encryption'
 import { useAuth } from "../context/AuthContext";
 import Link from 'next/link'
 
-// import { useRouter } from 'next/navigation'
 
 export default function Generator() {
-
-    // const router =useRouter()
     const [passwordLength, setPasswordLength] = useState(8)
     const [generatedPassword, setGeneratedPassword] = useState("")
     const [addNumbers, setAddNumbers] = useState(true)
@@ -89,20 +86,18 @@ export default function Generator() {
             const newPasswordDetails = {
                 ...passwordDetails,
                 title: defaultTitle(),
+                username: userInfo?.username,
                 password: generatedPassword,
             }
 
             const encryptedData = encryptData(newPasswordDetails, secretKey);
-            await axios.post(`/api/passwordDetails/${userInfo?.id}`, { encryptedData})
+            await axios.post(`/api/passwordDetails/${userInfo?.id}`, { encryptedData })
             setIsGenerated(false)
         } catch (error) {
             console.log('password direct details not saved', error)
         }
 
     }
-    // if (generatedPassword != '') {
-    // }
-
     const handleSaveDetailsForm = () => {
         setPasswordDetails({ ...passwordDetails, password: generatedPassword })
         setShowForm(true)
@@ -110,7 +105,7 @@ export default function Generator() {
         setIsGenerated(false)
     }
     return (
-        <div className={`generatorPage  shadow-lg rounded-2xl  h-fit  ${showForm ? "w-full flex justify-evenly" : "w-2/5 mx-auto bg-white p-6"}`}>
+        <div className={`generatorPage  shadow-lg rounded-2xl  h-fit  ${showForm ? "w-full flex justify-evenly" : "lg:w-2/5 mx-auto my-10 lg:my-0 bg-white lg:p-6"}`}>
 
 
             <div className={`flex flex-col  ${showForm ? "w-1/2 flex justify-evenly bg-white p-6 rounded-2xl shadow-lg" : " px-2"}`}>
@@ -129,12 +124,10 @@ export default function Generator() {
                             disabled
                             className='  p-1'
                         />
-                        <button onClick={handleCopy} disabled={!generatedPassword}>{isClicked? "Copied":"Copy"}</button>
+                        <button onClick={handleCopy} disabled={!generatedPassword}>{isClicked ? "Copied" : "Copy"}</button>
                     </div>
                 </div>
 
-
-                {/* <input type="text" /> */}
                 <div className="fulllength  my-2 flex flex-col">
                     <label htmlFor="length" className='text-lg mb-1.5'>Length</label>
                     <div className="length my-2  flex justify-evenly ">
@@ -185,17 +178,15 @@ export default function Generator() {
                     className={`bg-black rounded-lg text-white w-1/2 mx-auto py-2 disabled:cursor-not-allowed disabled:opacity-70`}
                 >Generate</button>
 
-               {!isLogin && <span className='text-lg text-center my-1.5'>Have an account? <Link href='/signup' className='hover:underline'>SignUp </Link>/<Link href='/login' className='hover:underline'> Login</Link></span>}
+                {!isLogin && <span className='text-lg text-center my-1.5'>Have an account? <Link href='/signup' className='hover:underline'>SignUp </Link>/<Link href='/login' className='hover:underline'> Login</Link></span>}
 
                 <div className="savingBtns py-2 flex justify-center">
                     {isLogin && (!showForm && (isGenerated && <> <button
                         onClick={handleDirectSaving}
-                        // disabled={generatedPassword == '' || isGenerated}
                         className='bg-black rounded-lg text-sm text-white w-1/3  py-2 mx-1'
                     >Save without details</button>
                         <button
                             onClick={handleSaveDetailsForm}
-                            // disabled={generatedPassword == '' || isGenerated}
                             className='bg-black rounded-lg text-sm text-white w-1/3 py-2 mx-1'
                         >save with details</button></>))
                     }

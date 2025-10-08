@@ -1,8 +1,15 @@
 
-# 🔒 SecureVault — Password Manager
+# 🔒 Password Manager
+
+We use AES encryption to secure all user passwords and sensitive data, ensuring complete privacy while allowing users to safely manage credentials for different websites. AES provides strong, efficient, and widely trusted protection for modern applications.
+
+
+Visit: **[https://password-manager-seven-zeta.vercel.app/](https://password-manager-seven-zeta.vercel.app/)**
 
 A modern, secure, and user-friendly **Password Manager** built using **Next.js**, **TypeScript**, and **MongoDB**.
 Generate strong passwords, save them securely, and manage your credentials with ease — all while keeping your data encrypted.
+
+
 
 ---
 
@@ -112,7 +119,6 @@ Create a `.env` file in the root of your project.
 npm run dev
 ```
 
-Visit: **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
@@ -160,22 +166,6 @@ All saved details are **encrypted before storing** in MongoDB, ensuring full pri
 * **JWT Authentication:** Secures routes and user sessions.
 * **Environment Variables:** Used for secrets and keys (never exposed).
 
----
-
-## 🧑‍💻 Developer Guide
-
-<!-- ### Running Lint and Type Check -->
-
-<!-- ```bash
-npm run lint
-npm run type-check
-``` -->
-
-<!-- ### Formatting Code
-
-```bash
-npm run format
-``` -->
 
 ---
 

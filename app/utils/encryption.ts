@@ -10,5 +10,5 @@ export function encryptData(data: object, secretKey: string): string {
 export function decryptData<T = unknown>(data: string, secretKey: string): T {
   const bytes = CryptoJS.AES.decrypt(data, secretKey);
   const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-  return JSON.parse(decrypted) as T; 
+  return JSON.parse(decrypted) as T;
 }
