@@ -53,7 +53,7 @@ export default function Profile() {
     
     useEffect(() => {
   if (encryptedData.length > 0) {
-    const decryptedArray = encryptedData.map(item =>
+    const decryptedArray : vaultItems[] = encryptedData.map(item =>
       decryptData(item.encryptedData, secretKey) 
     );
 
