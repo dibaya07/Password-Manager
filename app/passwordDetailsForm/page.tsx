@@ -25,6 +25,7 @@ export default function PasswordDetailsForm({ setShowForm, setIsGenerated, setGe
   const { userInfo,setUserInfo } = useAuth();
  
 const secretKey = "dibyaxyztuvsdfh"
+if (!userInfo) return <p>Loading...</p>;
 
   const handleUpdateDetails = async () => {
     
@@ -52,7 +53,7 @@ const secretKey = "dibyaxyztuvsdfh"
         type="text"
         placeholder='enter your title'
         id='title'
-        value={passwordDetails.title}
+        value={passwordDetails?.title}
         onChange={(e)=>setPasswordDetails({...passwordDetails,title:e.target.value})}
       />
       </div>
@@ -62,7 +63,7 @@ const secretKey = "dibyaxyztuvsdfh"
         type="text"
         placeholder='enter your password'
         id='password'
-        value={passwordDetails.password || ''}
+        value={passwordDetails?.password || ''}
         readOnly
       />
       </div>
