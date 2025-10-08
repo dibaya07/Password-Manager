@@ -5,11 +5,11 @@ import connectDB from '../../../../lib/mongodb'
 
 connectDB()
 
-// export async function POST(request: NextRequest, context: { params: Promise<{ id: string }> }) {
-export async function POST(request: NextRequest, context: { params: { id: string } }) {
+export async function POST(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+// export async function POST(request: NextRequest, context: { params: { id: string } }) {
   try {
-    // const { id } = await context.params;
-     const { id } = context.params;
+    const { id } = await context.params;
+    //  const { id } = context.params;
     const reqBody = await request.json();
     const { encryptedData } = reqBody;
     if (!encryptedData) {
@@ -48,10 +48,10 @@ export async function GET(request: NextRequest) { //{ params }: { params: { id: 
   }
 }
 
-// export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
-export async function PUT(request: NextRequest, context: { params: { id: string } }) {
-  // const { id } = await context.params;
-   const { id } = context.params;
+export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+// export async function PUT(request: NextRequest, context: { params: { id: string } }) {
+  const { id } = await context.params;
+  //  const { id } = context.params;
   const reqBody = await request.json();
   const { encryptedData } = reqBody;
 
@@ -66,12 +66,12 @@ export async function PUT(request: NextRequest, context: { params: { id: string 
 }
 
 
-// export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
-export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+// export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
   try {
     await connectDB();
-    // const { id } = await context.params;
-     const { id } = context.params;
+    const { id } = await context.params;
+    //  const { id } = context.params;
     const deletedItem = await PasswordDetail.findByIdAndDelete(id);
 
     if (!deletedItem) {
