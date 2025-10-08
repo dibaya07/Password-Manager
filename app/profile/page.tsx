@@ -112,7 +112,7 @@ export default function Profile() {
 
             <span className='font-bold text-2xl capitalize m-6 '>Welcome {userInfo?.username}</span>
 
-           {editItem && <div className='flex justify-center mb-4'>
+           {!editItem && <div className='flex justify-center mb-4'>
                 <input
                     type="text"
                     placeholder="Search by title..."
