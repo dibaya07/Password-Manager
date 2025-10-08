@@ -62,7 +62,7 @@ const secretKey = "dibyaxyztuvsdfh"
         type="text"
         placeholder='enter your password'
         id='password'
-        value={passwordDetails.password}
+        value={passwordDetails.password || ''}
         readOnly
       />
       </div>
@@ -82,7 +82,7 @@ const secretKey = "dibyaxyztuvsdfh"
         type="text"
         placeholder='enter your url'
         id='url'
-        value={passwordDetails.url}
+        value={passwordDetails.url || ''}
         onChange={(e)=>setPasswordDetails({...passwordDetails,url:e.target.value})}
       />
       </div>
@@ -92,7 +92,7 @@ const secretKey = "dibyaxyztuvsdfh"
         type="text"
         placeholder='enter your notes'
         id='notes'
-        value={passwordDetails.notes}
+        value={passwordDetails.notes || ''}
         onChange={(e)=>setPasswordDetails({...passwordDetails,notes:e.target.value})}
         className='border border-solid border-black rounded-sm p-1'
       />
