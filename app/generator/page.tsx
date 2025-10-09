@@ -9,11 +9,11 @@ import Link from 'next/link'
 
 export default function Generator() {
     const [passwordLength, setPasswordLength] = useState(8)
-    const [generatedPassword, setGeneratedPassword] = useState("")
+    // const [generatedPassword, setGeneratedPassword] = useState("")
     const [addNumbers, setAddNumbers] = useState(true)
     const [addSymbols, setAddSymbols] = useState(true)
-    const [isGenerated, setIsGenerated] = useState(false)
-    const [showForm, setShowForm] = useState(false)
+    // const [isGenerated, setIsGenerated] = useState(false)
+    // const [showForm, setShowForm] = useState(false)
     const [isClicked, setIsClicked] = useState(false)
     // const [passwordDetails, setPasswordDetails] = useState({
     //     title: "",
@@ -22,7 +22,7 @@ export default function Generator() {
     //     url: "",
     //     notes: "",
     // })
-    const { userInfo, isLogin,passwordDetails, setPasswordDetails } = useAuth();
+    const { userInfo, isLogin,passwordDetails, setPasswordDetails,showForm, setShowForm,generatedPassword, setGeneratedPassword,isGenerated, setIsGenerated } = useAuth();
 
     const secretKey = "dibyaxyztuvsdfh"
 
@@ -193,7 +193,7 @@ export default function Generator() {
                 </div>
             </div>
 
-            {showForm && <PasswordDetailsForm setShowForm={setShowForm} setIsGenerated={setIsGenerated} setGeneratedPassword={setGeneratedPassword} />}
+            {showForm && <PasswordDetailsForm />}
 
         </div>
     )

@@ -23,6 +23,12 @@ interface AuthContextType {
     setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
     passwordDetails: Details | null;
     setPasswordDetails: React.Dispatch<React.SetStateAction<Details | null>>;
+    showForm: boolean;
+    setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+    generatedPassword: string;
+    setGeneratedPassword : React.Dispatch<React.SetStateAction<string>>;
+    isGenerated : boolean;
+     setIsGenerated : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface AuthProviderProps {
@@ -36,6 +42,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [userInfo, setUserInfo] = useState<User | null>(null);
     const [isLogin, setIsLogin] = useState<boolean>(false)
     const [passwordDetails, setPasswordDetails] = useState<Details | null>(null)
+    const [showForm, setShowForm] = useState<boolean>(false)
+    const [generatedPassword, setGeneratedPassword] = useState<string>("")
+    const [isGenerated, setIsGenerated] = useState<boolean>(false)
 
     useEffect(() => {
         const checkUser = async () => {
@@ -56,7 +65,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ userInfo, isLogin, setUserInfo, setIsLogin, passwordDetails, setPasswordDetails }}>
+        <AuthContext.Provider value={{ userInfo, isLogin, setUserInfo, setIsLogin, passwordDetails, setPasswordDetails ,showForm, setShowForm,generatedPassword, setGeneratedPassword ,isGenerated, setIsGenerated}}>
             {children}
         </AuthContext.Provider>
     );

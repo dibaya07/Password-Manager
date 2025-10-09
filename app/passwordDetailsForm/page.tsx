@@ -13,13 +13,8 @@ import { useAuth } from "../context/AuthContext";
 //   notes: string;
 // }
 
-interface PasswordDetailsFormProps {
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsGenerated: React.Dispatch<React.SetStateAction<boolean>>;
-  setGeneratedPassword: React.Dispatch<React.SetStateAction<string>>;
-}
-export default function PasswordDetailsForm({ setShowForm, setIsGenerated, setGeneratedPassword }: PasswordDetailsFormProps) {
-  const { userInfo, setUserInfo ,passwordDetails, setPasswordDetails} = useAuth();
+export default function PasswordDetailsForm() {
+  const { userInfo, setUserInfo ,passwordDetails, setPasswordDetails , setShowForm , setGeneratedPassword, setIsGenerated} = useAuth();
 
   const secretKey = "dibyaxyztuvsdfh"
   if (!userInfo) return <p>Loading...</p>;
