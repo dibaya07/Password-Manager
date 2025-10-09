@@ -8,12 +8,21 @@ interface User {
     username?: string;
     email?: string;
 }
+export interface Details {
+    title?: string;
+    username?: string;
+    password?: string;
+    url?: string;
+    notes?: string;
+}
 
 interface AuthContextType {
     userInfo: User | null;
     isLogin: boolean;
     setUserInfo: React.Dispatch<React.SetStateAction<User | null>>;
     setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+    passwordDetails: Details | null;
+    setPasswordDetails: React.Dispatch<React.SetStateAction<Details | null>>;
 }
 
 interface AuthProviderProps {
@@ -26,6 +35,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const [userInfo, setUserInfo] = useState<User | null>(null);
     const [isLogin, setIsLogin] = useState<boolean>(false)
+    const [passwordDetails, setPasswordDetails] = useState<Details | null>(null)
 
     useEffect(() => {
         const checkUser = async () => {
@@ -46,7 +56,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ userInfo, isLogin, setUserInfo, setIsLogin }}>
+        <AuthContext.Provider value={{ userInfo, isLogin, setUserInfo, setIsLogin, passwordDetails, setPasswordDetails }}>
             {children}
         </AuthContext.Provider>
     );

@@ -5,23 +5,21 @@ import { encryptData } from '../utils/encryption'
 import { useAuth } from "../context/AuthContext";
 
 
-interface PasswordDetailType {
-  title: string;
-  username: string;
-  password: string;
-  url: string;
-  notes: string;
-}
+// interface PasswordDetailType {
+//   title: string;
+//   username: string;
+//   password: string;
+//   url: string;
+//   notes: string;
+// }
 
 interface PasswordDetailsFormProps {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
   setIsGenerated: React.Dispatch<React.SetStateAction<boolean>>;
   setGeneratedPassword: React.Dispatch<React.SetStateAction<string>>;
-  passwordDetails: PasswordDetailType;
-  setPasswordDetails: React.Dispatch<React.SetStateAction<PasswordDetailType>>;
 }
-export default function PasswordDetailsForm({ setShowForm, setIsGenerated, setGeneratedPassword, passwordDetails, setPasswordDetails }: PasswordDetailsFormProps) {
-  const { userInfo, setUserInfo } = useAuth();
+export default function PasswordDetailsForm({ setShowForm, setIsGenerated, setGeneratedPassword }: PasswordDetailsFormProps) {
+  const { userInfo, setUserInfo ,passwordDetails, setPasswordDetails} = useAuth();
 
   const secretKey = "dibyaxyztuvsdfh"
   if (!userInfo) return <p>Loading...</p>;
@@ -51,7 +49,7 @@ export default function PasswordDetailsForm({ setShowForm, setIsGenerated, setGe
           type="text"
           placeholder='enter your title'
           id='title'
-          value={passwordDetails?.title}
+          value={passwordDetails?.title || ''}
           onChange={(e) => setPasswordDetails({ ...passwordDetails, title: e.target.value })}
         />
       </div>

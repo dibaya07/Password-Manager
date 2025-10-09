@@ -1,7 +1,7 @@
-
+import type {Details} from '../context/AuthContext'
 import CryptoJS from "crypto-js";
 
-export function encryptData(data: object, secretKey: string): string {
+export function encryptData(data: Details | null, secretKey: string): string {
   const jsonData = JSON.stringify(data);
   const encrypted = CryptoJS.AES.encrypt(jsonData, secretKey).toString();
   return encrypted;

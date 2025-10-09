@@ -15,14 +15,14 @@ export default function Generator() {
     const [isGenerated, setIsGenerated] = useState(false)
     const [showForm, setShowForm] = useState(false)
     const [isClicked, setIsClicked] = useState(false)
-    const [passwordDetails, setPasswordDetails] = useState({
-        title: "",
-        username: "",
-        password: "",
-        url: "",
-        notes: "",
-    })
-    const { userInfo, isLogin } = useAuth();
+    // const [passwordDetails, setPasswordDetails] = useState({
+    //     title: "",
+    //     username: "",
+    //     password: "",
+    //     url: "",
+    //     notes: "",
+    // })
+    const { userInfo, isLogin,passwordDetails, setPasswordDetails } = useAuth();
 
     const secretKey = "dibyaxyztuvsdfh"
 
@@ -193,7 +193,7 @@ export default function Generator() {
                 </div>
             </div>
 
-            {showForm && <PasswordDetailsForm passwordDetails={passwordDetails} setPasswordDetails={setPasswordDetails} setShowForm={setShowForm} setIsGenerated={setIsGenerated} setGeneratedPassword={setGeneratedPassword} />}
+            {showForm && <PasswordDetailsForm setShowForm={setShowForm} setIsGenerated={setIsGenerated} setGeneratedPassword={setGeneratedPassword} />}
 
         </div>
     )
