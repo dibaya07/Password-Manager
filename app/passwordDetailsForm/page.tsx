@@ -4,18 +4,9 @@ import React from 'react'
 import { encryptData } from '../utils/encryption'
 import { useAuth } from "../context/AuthContext";
 
-
-// interface PasswordDetailType {
-//   title: string;
-//   username: string;
-//   password: string;
-//   url: string;
-//   notes: string;
-// }
-
 export default function PasswordDetailsForm() {
-  const { userInfo, setUserInfo ,passwordDetails, setPasswordDetails , setShowForm , setGeneratedPassword, setIsGenerated} = useAuth();
-
+  const { userInfo, setUserInfo, passwordDetails, setPasswordDetails, setShowForm, setGeneratedPassword, setIsGenerated } = useAuth();
+  // setIsACAvailable,accessCode
   const secretKey = "dibyaxyztuvsdfh"
   if (!userInfo) return <p>Loading...</p>;
 
@@ -33,10 +24,11 @@ export default function PasswordDetailsForm() {
       url: "",
       notes: "",
     })
+    // setIsACAvailable(true)
   }
 
   return (
-    <div className='flex flex-col w-2/5 bg-white rounded-2xl shadow-lg p-6'>
+    <div className='flex flex-col w-full my-1.5 lg:my-0 lg:w-2/5 bg-white rounded-2xl shadow-lg p-6'>
       <h1 className='font-bold text-3xl my-3'>Password Details Form</h1>
       <div className="title  my-2 flex flex-col">
         <label htmlFor="title" className='text-xl mb-1.5'>Title</label>

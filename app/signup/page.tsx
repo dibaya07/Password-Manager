@@ -30,7 +30,7 @@ export default function Signup() {
     }
     return (
         <div className=' bg-[#f8f9fa] h-screen flex justify-center items-center'>
-            <div className="loginPage bg-white  flex flex-col w-2/5 rounded-2xl p-6 shadow-lg">
+            <div className="loginPage bg-white  flex flex-col w-full md:w-2/5 md:rounded-2xl p-6 shadow-lg">
 
                 <h1 className='font-bold text-3xl my-3'>signup</h1>
                 <div className="username  my-2 flex flex-col">

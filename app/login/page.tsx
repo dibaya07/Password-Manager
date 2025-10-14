@@ -9,7 +9,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
     const router = useRouter()
-    const { setIsLogin } = useAuth();
+    const { setIsLogin, setGeneratedPassword, setIsACAvailable, setIsGenerated } = useAuth();
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -19,8 +19,10 @@ export default function Login() {
         try {
             const response = await axios.post('/api/user/login', user)
             console.log('login success', response)
-
+            setGeneratedPassword('')
             setIsLogin(true)
+            setIsACAvailable(false)
+            setIsGenerated(false)
             router.push('/')
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -32,7 +34,7 @@ export default function Login() {
 
     return (
         <div className=' bg-[#f8f9fa] h-screen flex justify-center items-center'>
-            <div className="loginPage bg-white  flex flex-col w-2/5 rounded-2xl p-6 shadow-lg">
+            <div className="loginPage bg-white  flex flex-col w-full md:w-2/5 md:rounded-2xl p-4 lg:p-6 shadow-lg">
 
 
                 <h1 className='font-bold text-3xl my-3'>Login</h1>

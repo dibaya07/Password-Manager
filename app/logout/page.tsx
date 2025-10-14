@@ -7,11 +7,14 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Logout() {
   const router = useRouter()
-  const { setUserInfo, setIsLogin } = useAuth();
+  const { setUserInfo, setIsLogin, setGeneratedPassword, setIsACAvailable, setaccessCodeSetter } = useAuth();
+
   const handleLogout = async () => {
     try {
       await axios.get('/api/user/logout')
       setUserInfo(null)
+      // checkAccessCode()
+
       router.push('/')
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -20,6 +23,9 @@ export default function Logout() {
       }
     } finally {
       setIsLogin(false)
+      setGeneratedPassword('')
+      setaccessCodeSetter(false)
+      setIsACAvailable(false)
     }
   }
   return (

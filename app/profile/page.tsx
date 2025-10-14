@@ -23,10 +23,10 @@ export default function Profile() {
     }
     const [vaultData, setvaultData] = useState<vaultItems[]>([])
     const [encryptedData, setEncryptedData] = useState<encryptedItems[]>([])
-    const { userInfo } = useAuth();
-    const [loading, setLoading] = useState(true)
+    const { userInfo, isACAvailable, accessCode, setAccessCode } = useAuth();
     const [editItem, setEditItem] = useState<vaultItems | null>(null);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isAccessCodeEntered, setIsAccessCodeEntered] = useState(false)
 
     useEffect(() => {
         if (!userInfo?.id) return;
@@ -34,14 +34,10 @@ export default function Profile() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`/api/passwordDetails/${userInfo?.id}`)
-                console.log('all encrypted vault', response.data)
                 setEncryptedData(response.data.data)
             } catch (error) {
                 console.log("data fetching error", error)
-            } finally {
-                setLoading(false)
             }
-
         };
         fetchData();
 
@@ -52,6 +48,7 @@ export default function Profile() {
         if (encryptedData.length > 0) {
             const decryptedArray: vaultItems[] = encryptedData.map(item => {
                 const decrypted = decryptData<vaultItems>(item.encryptedData, secretKey);
+                // console.log(decrypted)
                 const { encryptedData, ...rest } = item;
                 return {
                     ...rest,
@@ -101,61 +98,83 @@ export default function Profile() {
     };
 
     const filteredVaultData = vaultData.filter(item =>
-        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+        item.title?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const handleAccessSubmit = async () => {
+        await axios.post(`/api/accessCode/checkAccessCode/${userInfo?.id}`, { accessCode })
+        setIsAccessCodeEntered(true)
+        setAccessCode('')
 
-    if (loading) return <><p>Loading...</p></>
+    }
+
 
     return (
-        <div className="profile flex flex-col bg-[#f8f9fa]">
 
-            <span className='font-bold text-2xl capitalize m-6 '>Welcome {userInfo?.username}</span>
+        <div className="profile flex flex-col ">
 
-           {!editItem && <div className='flex justify-center mb-4'>
-                <input
-                    type="text"
-                    placeholder="Search by title..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className='border border-gray-400 w-1/3 p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black'
-                />
-            </div>}
-
-            {!editItem && <div className='flex flex-wrap justify-center h-screen py-6 '>
-                {filteredVaultData.length === 0 && (
-                    <p className="text-gray-600 text-lg">No matching vaults found.</p>
-                )}
-
-                {
-                    filteredVaultData.map((item) => {
-                        // {console.log(item._id)}
-                        return (
-                            <ul key={item._id} className='border border-solid border-black/20 mx-2 my-2 w-2/5 h-fit py-2 px-4 rounded-2xl bg-white shadow-lg'>
-                                <li className='mt-2 text-xl mb-1.5'><span className='font-semibold mr-2 '>Title :</span>{item.title}</li>
-                                <li className='mt-2 text-xl mb-1.5'> <span className='font-semibold mr-2 '>Username :</span>{item.username}</li>
-                                <li className='mt-2 text-xl mb-1.5'><span className='font-semibold mr-2 '>Password :</span>{item.password}</li>
-                                <li className='mt-2 text-xl mb-1.5'><span className='font-semibold mr-2 '>URL :</span>{item.url}</li>
-                                <li className='mt-2 text-xl mb-1.5'> <span className='font-semibold mr-2 '>Notes :</span>{item.notes}</li>
-                                <div className="btn  ">
-                                    <button className='rounded-sm bg-black text-white py-2 px-4 my-4 mx-2' onClick={() => handleEdit(item)}>Edit</button>
-                                    <button className=' rounded-sm bg-black text-white py-2 px-4 my-4 mx-2xs'
-                                        onClick={() => handleDelete(item._id)}
-                                    >Delete</button>
-
-                                </div>
-                            </ul>
-
-                        )
+            {isACAvailable || !isAccessCodeEntered && (
+                <div className="mpin  flex flex-col mx-auto p-6 lg:w-1/2 items-center">
+                    <input
+                        type="text"
+                        placeholder='Enter vault password'
+                        value={accessCode || ''}
+                        onChange={(e) => setAccessCode(e.target.value)}
+                        className='p-2 border border-solid border-black rounded-md  lg:w-1/2'
+                    />
+                    <button
+                        onClick={handleAccessSubmit}
+                        className='bg-black rounded-lg text-sm text-white w-1/2 lg:w-1/3  py-2 mx-1 my-2 '
+                    >submit</button>
+                </div>
 
 
-                    })
-                }
-            </div>}
+            )}
+
+            {isAccessCodeEntered && !editItem &&
+                <div className='flex justify-center mb-4'>
+                    <input
+                        type="text"
+                        placeholder="Search by title..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className='border border-gray-400 lg:w-1/3 p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black'
+                    />
+                </div>}
+            {isAccessCodeEntered && !editItem &&
+                <div className='flex flex-wrap justify-center h-screen py-6 '>
+                    {filteredVaultData.length === 0 && (
+                        <p className="text-gray-600 text-lg">No matching vaults found.</p>
+                    )}
+
+                    {
+                        filteredVaultData.map((item) => {
+                            return (
+                                <ul key={item._id} className='border border-solid border-black/20 mx-1 md:mx-2 my-2 w-full md:w-2/5 h-fit py-2 px-4 rounded-sm md:rounded-2xl bg-white shadow-lg'>
+                                    <li className='md:mt-2 text-lg md:text-xl md:mb-1.5'><span className='font-semibold mr-2 '>Title :</span>{item.title}</li>
+                                    <li className='md:mt-2 text-lg md:text-xl md:mb-1.5'> <span className='font-semibold mr-2 '>Username :</span>{item.username}</li>
+                                    <li className='md:mt-2 text-lg md:text-xl md:mb-1.5'><span className='font-semibold mr-2 '>Password :</span>{item.password}</li>
+                                    <li className='md:mt-2 text-lg md:text-xl md:mb-1.5'><span className='font-semibold mr-2 '>URL :</span>{item.url}</li>
+                                    <li className='md:mt-2 text-lg md:text-xl md:mb-1.5'> <span className='font-semibold mr-2 '>Notes :</span>{item.notes}</li>
+                                    <div className="btn  ">
+                                        <button className='rounded-sm bg-black text-white py-2 px-4 my-4 mx-2' onClick={() => handleEdit(item)}>Edit</button>
+                                        <button className=' rounded-sm bg-black text-white py-2 px-4 my-4 mx-2xs'
+                                            onClick={() => handleDelete(item._id)}
+                                        >Delete</button>
+
+                                    </div>
+                                </ul>
+
+                            )
+
+
+                        })
+                    }
+                </div>}
             {
                 editItem &&
                 (
-                    <div className='border border-solid border-black/20 mx-auto my-6 w-2/5 h-fit py-2 px-4 rounded-2xl bg-white shadow-lg'>
+                    <div className='border border-solid border-black/20 md:mx-auto my-6 md:w-2/5 h-fit py-2 px-4 rounded-sm md:rounded-2xl bg-white shadow-lg'>
                         <form onSubmit={(e) => handleSubmit(e)}>
                             <h2 className='text-xl font-bold mb-4'>Edit Vault Item</h2>
                             <input
